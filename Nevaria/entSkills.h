@@ -27,7 +27,7 @@ class entSkills{
 		map<string, int> skillLevels;
 
 		//List of Player's experience in each skill. Aligns with skillList indexes and is init to 0 for each skill.
-		int entSkillExp[];
+		int entSkillExp[9];
 };
 
 #endif

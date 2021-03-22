@@ -1,5 +1,5 @@
 #include <iostream>
-#include <stdlib.h>
+#include <cstdlib>
 #include <map>
 #include <string>
 #include "entSkills.h"
@@ -62,7 +62,7 @@ int main() {
 
 bool checkChoice(int input, int maxValid) {
 	if (input > maxValid || input < 0) {
-		cout << "Input invalid. Enter a valid option." << endl;
+		std::cout << "Input invalid. Enter a valid option." << endl;
 		return true;
 	}
 	return false;
@@ -79,6 +79,8 @@ void pause() {
 	while (false);
 }
 
+using namespace std;
+
 void characterCreation() {
 	int tempChoice;
 	int tempChoice2;
@@ -87,6 +89,7 @@ void characterCreation() {
 	int skill1, skill2, skill3;
 	string charName = "";
 	bool statFlag = false;
+	bool skillFlag = false;
 
 	do {
 		try {
@@ -117,13 +120,13 @@ void characterCreation() {
 			cin.clear();
 			cin.ignore(1, '\n');
 			charName = "";
-			system("clear");
+			system("CLS");
 		}
 
 	}
 	while (charName == "");
 
-	system("clear");
+	system("CLS");
 
 	cout << "Stats: \n\nStrength - Affects melee damage. Factors into max Health and Stamina. Determines max encumberance. \n\nIntelligence - Affects magic damage. Determines max Mana. \n\nAgility - Affects your chance to dodge and land critical hits. \n\nDexterity - Affects weapon accuracy and ranged weapon damage. \n\nConstitution - Affects physical damage resistance. Factors into max Health and Stamina. \n\nWill - Affects magical damage resistance and chance to critically hit with spells. Factors into max Stamina.\n" << endl;
 
@@ -131,35 +134,50 @@ void characterCreation() {
 
 	do {
 		tempChoice = 0; tempChoice2 = 0;
-		system("clear");
+		system("CLS");
 		cout << "Points Remaining: " << pointPool << endl;
-		cout << "(0) Strength: " << str << "\n(1) Intelligence: " << intel << "\n(2) Agility: " << agi << "\n(3) Dexterity: " << dex << "\n(4) Constitution: " << con << "\n(5) Will: "<< wil << endl;
+		cout << "(0) Strength: " << str << "\n(1) Intelligence: " << intel << "\n(2) Agility: " << agi << "\n(3) Dexterity: " << dex << "\n(4) Constitution: " << con << "\n(5) Will: " << wil << "\n(6) Ready to continue." << endl;
 
 		do {
 			cout << "Input the stat to adjust: ";
 			cin >> tempChoice;
-		}
-		while (checkChoice(tempChoice, 5));
+		} while (checkChoice(tempChoice, 5));
 
 		do {
 			cout << "Input how many points to add/take: ";
 			cin >> tempChoice2;
-		}
-		while (tempChoice2 == 0);
+			if (tempChoice2 > pointPool || tempChoice2 < (pointPool - 16) || )
+			{
+				cout << "Invalid Input.";
+				tempChoice2 = 0;
+			}
 
-		switch (tempChoice) {
+			switch (tempChoice) {
 			case 0:
 				str = str + tempChoice2;
 			case 1:
+				intel = intel + tempChoice2;
 			case 2:
+				agi = agi + tempChoice2;
 			case 3:
+				dex = dex + tempChoice2;
 			case 4:
+				con = con + tempChoice2;
 			case 5:
-				break;
+				wil = wil + tempChoice2;
+			case 6:
+				if (pointPool != 0) {
+					cout << "Not all points spent!";
+					break;
+				}
+			}
+			//cout << "Done.";
 		}
+		while (statFlag != true && pointPool != 0);
+	}
+	while (skillFlag != true);
+}
 
-		}
-		while (statFlag != true && pointPool == 0);
-
-	cout << "Done.";
+void statCheck_Adjust(int &stat, int change) {
+	if (stat + change < 10)
 }
