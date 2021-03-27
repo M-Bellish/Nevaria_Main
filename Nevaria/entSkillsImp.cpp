@@ -43,7 +43,7 @@ entSkills::entSkills(int index[3])
 	for (int i = 0; i < 3; i++)
 		skillLevels[skillList[index[i]]] = 4;
 
-	entSkillExp[9] = {};
+	//entSkillExp[9] = {};
 }
 
 entSkills::entSkills(int sk1, int sk2, int sk3, int sk4, int sk5, int sk6)
@@ -55,5 +55,5 @@ entSkills::entSkills(int sk1, int sk2, int sk3, int sk4, int sk5, int sk6)
 		skillLevels[skillList[4]] = sk5;
 		skillLevels[skillList[5]] = sk6;
 
-	entSkillExp[9] = {};
+	//entSkillExp[9] = {};
 }
