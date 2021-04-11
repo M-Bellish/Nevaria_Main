@@ -148,8 +148,10 @@
     <ClCompile Include="entSkillsImp.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="itemWeaponImp.cpp" />
+    <ClCompile Include="characterCreationImp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="characterCreation.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="dungeon.h" />
     <ClInclude Include="entAttributes.h" />
