@@ -3,8 +3,8 @@
 #include <map>
 #include <string>
 #include <algorithm>
-#include "entSkills.h"
 #include "Constants.h"
+#include "entSkills.h"
 #include "characterCreation.h"
 //#include "Hub.cpp"
 //#include "itemBaseClass.h"
@@ -17,12 +17,6 @@
 
 using namespace std;
 
-
-
-//The output of the "help" option. Intentionally global
-//so that it can be updated from any location in the program
-//to hold the relevant options for the situation.
-//string help;
 
 int main() {
 	bool exitFlag = true;
@@ -56,3 +50,21 @@ int main() {
 	return 0;
 }
 
+//Stops the program until the user presses Enter.
+//Used for anytime the user needs time to read the screen.
+void pause() {
+	string pause;
+	do {
+		cin.clear();
+		cin.ignore(1, '\n');
+		cout << "Press Enter to continue..." << endl;
+		getline(cin, pause);
+	} while (false);
+}
+
+void showHelp(string help) {
+	system("clear");
+	//system("CLS");
+	cout << help << endl;
+	pause();
+}

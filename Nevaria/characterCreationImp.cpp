@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <string>
 #include <algorithm>
+#include "Constants.h"
 #include "characterCreation.h"
 
 using namespace std;
@@ -19,28 +20,9 @@ string help;
 int pointPool = 16;
 int str = 10, intel = 10, agi = 10, dex = 10, con = 10, wil = 10;
 
-
-//Stops the program until the user presses Enter.
-//Used for anytime the user needs time to read the screen.
-void pause() {
-	string pause;
-	do {
-		cin.clear();
-		cin.ignore(1, '\n');
-		cout << "Press Enter to continue..." << endl;
-		getline(cin, pause);
-	} while (false);
-}
-
-void showHelp() {
-	system("CLS");
-	cout << help << endl;
-	pause();
-}
-
-void statScreen(int pointPool, int str, int intel, int agi, int dex, int con, int wil) {
-	cout << "Points Remaining: " << pointPool << endl;
-	cout << "(0) Strength: " << str << "\n(1) Intelligence: " << intel << "\n(2) Agility: " << agi << "\n(3) Dexterity: " << dex << "\n(4) Constitution: " << con << "\n(5) Will: " << wil << "\n(6) Ready to continue.\n(7) Explain Stats again." << endl;
+void statScreen(int pointsLeft, int str, int intel, int agi, int dex, int con, int wil) {
+	cout << "Points Remaining: " << pointsLeft << endl << endl;
+	cout << "(0) Strength: " << str << "\n(1) Intelligence: " << intel << "\n(2) Agility: " << agi << "\n(3) Dexterity: " << dex << "\n(4) Constitution: " << con << "\n(5) Will: " << wil << "\n(6) Ready to continue.\n" << endl;
 }
 
 //Used to verify standard number inputs.
@@ -48,7 +30,9 @@ bool checkChoice(int& input, int maxValid) {
 	if (input == 10)
 		return false;
 	else if (input > maxValid || input < 0) {
-		cout << "Input invalid. Enter a valid option." << endl;
+		cout << "Invalid Input. Enter a valid option." << endl;
+		pause();
+		system("clear");
 		return true;
 	}
 	else
@@ -61,6 +45,8 @@ bool checkChoice(string& choice, int& numChoice) {
 
 	if (choice != "help") {
 		choice = "";
+		cout << "Invalid Input." << endl;
+		pause();
 		return true;
 	}
 	else {
@@ -75,8 +61,12 @@ bool checkChoice(string& choice, int& numChoice) {
 void checkHelp(string& choice, int& numChoice) {
 	char ch = 0;
 	bool valFlag = true;
+	
 	do {
 		do {
+			//system("CLS");
+			system("clear");
+			statScreen(pointPool, str, intel, agi, dex, con, wil);
 			cout << "Input the stat to adjust: ";
 			cin >> choice;
 			ch = choice[0];
@@ -94,6 +84,10 @@ void checkHelp(string& choice, int& numChoice) {
 			}
 			else if (isalpha(ch))
 				valFlag = checkChoice(choice, numChoice);
+			else {
+				numChoice = -1;
+				valFlag = false;
+			}
 		} while (valFlag);
 	} while (checkChoice(numChoice, 6));
 }
@@ -103,35 +97,45 @@ void checkHelp(string& choice, int& numChoice) {
 //passed and handled by statAdjust.
 void statAdjustCheck(string& choice, int& numChoice) {
 	bool valFlag = true;
-	char ch1 = choice[0];
+	char ch;
 
 	do {
+		cin.clear();
+		//system("CLS");
+		system("clear");
+		statScreen(pointPool, str, intel, agi, dex, con, wil);			
 		cout << "Input how many points to add/remove: ";
 		cin >> choice;
+		ch = choice[0];
 		if (choice.length() > 1) {
-			if ((ch1 == '-' && isdigit(choice[1]))) {
+			if ((ch == '-' && isdigit(choice[1]))) {
 				numChoice = (0 - (choice[1] - '0'));
 				valFlag = false;
 			}
-			else if (isdigit(ch1)) {
-				numChoice = ch1 - '0';
-				valFlag = false;
-			}
-			else if (isalpha(ch1)) {
-				if (checkChoice(choice, numChoice) == false)
-					showHelp();
+			else if (isalpha(ch)) {
+				if (checkChoice(choice, numChoice) == false) {
+					showHelp(help);
+				}
 			}
 			else {
-				cout << "invalid Input." << endl;
+				cout << "Invalid Input." << endl;
 				pause();
 			}
+		}
+		else if (isdigit(ch)) {
+			numChoice = ch - '0';
+			valFlag = false;
+		}
+		else {
+			cout << "Invalid Input." << endl;
+			pause();
 		}
 	} while (valFlag);
 }
 
+//
 void statAdjust(int& stat, int& points) {
 	bool valFlag = true;
-	help = "Stats can't be lower than 10 or higher than 18 to start with.\nUse a negative number to take points back from a stat e.g. -2.";
 	string varChoice2 = "";
 	int tempChoice2 = 0;
 
@@ -170,7 +174,8 @@ void characterCreation() {
 			getline(cin, charName);
 			if (charName.length() > 20)
 				throw longStringExcept();
-			system("CLS");
+			system("clear");
+			//system("CLS");
 			cout << "Your name is " << charName << ". Is that correct?" << endl;
 			cout << "(0) No, I want to put in a different name.\n(1) Yes, Continue." << endl;
 
@@ -194,23 +199,21 @@ void characterCreation() {
 			cin.ignore(1, '\n');
 			charName = "";
 			//Linux
-			/*system("clear");*/
+			system("clear");
 			//Windows
-			system("CLS");
+			//system("CLS");
 		}
 	} while (charName == "");
 
-	/*system("clear");*/
-	system("CLS");
-	help = "Stats: \n\nStrength - Affects melee damage. Factors into max Health and Stamina. Determines max encumberance. \n\nIntelligence - Affects magic damage. Determines max Mana. \n\nAgility - Affects your chance to dodge and land critical hits. \n\nDexterity - Affects weapon accuracy and ranged weapon damage. \n\nConstitution - Affects physical damage resistance. Factors into max Health and Stamina. \n\nWill - Affects magical damage resistance and chance to critically hit with spells. Factors into max Stamina.\n";
-	cout << help << endl;
-	pause();
+	system("clear");
+	//system("CLS");
+	help = "Stat Explanations: \n\nStrength - Affects melee damage. Factors into max Health and Stamina. Determines max encumberance. \n\nIntelligence - Affects magic damage. Determines max Mana. \n\nAgility - Affects your chance to dodge and land critical hits. \n\nDexterity - Affects weapon accuracy and ranged weapon damage. \n\nConstitution - Affects physical damage resistance. Factors into max Health and Stamina. \n\nWill - Affects magical damage resistance and chance to critically hit with spells. Factors into max Stamina.\n\nStats can't be lower than 10 or higher than 18 to start with.\nUse a negative number to take points back from a stat e.g. -2.";
+	showHelp(help);
+	system("clear");
+	//system("CLS");
 
 	do {
 		tempChoice = 0;
-		/*system("clear");*/
-		system("CLS");
-
 
 		checkHelp(varChoice, tempChoice);
 
@@ -244,7 +247,7 @@ void characterCreation() {
 				break;
 			}
 		case 10:
-			showHelp();
+			showHelp(help);
 			break;
 		default:
 			break;

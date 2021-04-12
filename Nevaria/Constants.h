@@ -1,7 +1,13 @@
+#ifndef H_Constants
+#define H_Constants
+
+
 #include <iostream>
 #include <string>
 
 using namespace std;
+
+void pause();
 
 //Skill name list; used to initialize skillLevels with skill names being keys.
 //Can be sliced if passed an index to get the name key to slice the skillLevels map
@@ -25,3 +31,7 @@ const string craftMatsTypes[8]{ "Chitin", "Leather", "Iron", "Steel", "Elven Ste
 const double craftMatsWgtMod[8]{0.3, 0.6, 1.0, 1.2, 0.9, 2.0, 0.8, 1.5};
 const double craftMatsDmgMod[8]{0.4, 0, 1.0, 1.1, 1.3, 1.9, 1.7, 2.1};
 const double craftMatsDefMod[8]{0.5, 0.7, 1.0, 1.2, 1.4, 2.0, 1.6, 1.9};
+
+
+
+#endif

@@ -7,8 +7,7 @@
 
 using namespace std;
 
-void pause();
-void showHelp();
+void showHelp(string);
 void statScreen(int pointPool, int str, int intel, int agi, int dex, int con, int wil);
 bool checkChoice(int& input, int maxValid);
 bool checkChoice(string& choice, int& numChoice);
