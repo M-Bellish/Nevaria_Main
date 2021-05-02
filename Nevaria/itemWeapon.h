@@ -1,6 +1,8 @@
 #ifndef H_itemWeapon
 #define H_itemWeapon
 
+#include <string>
+#include "itemBaseClass.h"
 
 class weapon : public item {
 public:

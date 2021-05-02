@@ -3,6 +3,8 @@
 
 using namespace std;
 
+#include "Constants.h"
+
 class entSkills{
 	public:
 		//Gets current skill level of skill name passed to it.
@@ -27,7 +29,7 @@ class entSkills{
 		map<string, int> skillLevels;
 
 		//List of Player's experience in each skill. Aligns with skillList indexes and is init to 0 for each skill.
-		int entSkillExp[9] = {};
+		int entSkillExp[9];
 };
 
 #endif

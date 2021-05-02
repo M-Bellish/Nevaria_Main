@@ -51,28 +51,28 @@ public:
 
 //Constructors
 	//Constructor for new character
-	entAttributes(int* &list);
-	//entAttributes(int str, int intel, int agi, int dex, int con, int wil);
+	entAttributes(int* list);
 	//Constructor used to generate enemies
 	entAttributes(int str, int intel, int agi, int dex, int con,
 		int wil, int hlth, int mana, int stam);
 
 private:
-
-	int strength;
+//***Character's primary attributes.***
 	//Affects melee dmg & ranged dmg to a lesser degree and max encumberance.
-	int intelligence;
+	int strength;
 	//Affects magic dmg and max mana.
-	int agility;
+	int intelligence;
 	//Affects dodge chance, crit chance, and
 	//chance to avoid detection when sneaking.
-	int dexterity;
+	int agility;
 	//Affects hit chance with all weapons, crit chance, and ranged damage.
-	int constitution;
+	int dexterity;
 	//Affects max health & stamina and adds to base dmg resistance.
-	int will;
+	int constitution;
 	//Affects stamina & magic crit chance and adds to magic resistance chance.
-//***Character's primary attributes.***
+	int will;
+	
+
 
 
 //Character's maximum and current value for derived attributes. Current
@@ -92,7 +92,6 @@ private:
 	int baseAccuracy;
 	int baseDmgRes;
 	int baseMagRes;
-	
 
 };
 

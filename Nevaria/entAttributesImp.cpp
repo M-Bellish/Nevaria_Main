@@ -30,15 +30,14 @@ void entAttributes::adjustConstitution(int i){
 void entAttributes::adjustWill(int i){
 	will = (will + i);
 }
-
 void entAttributes::calcMaxHealth(){
-	maxHealth = (constitution);
+	maxHealth = ((constitution * 2) + (strength / 2));
 }
 void entAttributes::calcMaxMana(){
-
+	maxMana = intelligence * 2;
 }
 void entAttributes::calcMaxStamina(){
-
+	maxStamina = (strength + (constitution * 2) + will) / 3;
 }
 void entAttributes::adjustCurrentHealth(int i){
 	currentHealth = (currentHealth + i);
@@ -76,7 +75,6 @@ int entAttributes::getConstitution(){
 int entAttributes::getWill(){
 	return will;
 }
-
 int entAttributes::getCurrentHealth(){
 	return currentHealth;
 }
@@ -96,7 +94,7 @@ int entAttributes::getMaxStamina(){
 	return maxStamina;
 }
 
-entAttributes::entAttributes(int* &list)
+entAttributes::entAttributes(int* list)
 {
 	strength = list[0];
 	intelligence = list[1];
@@ -110,6 +108,12 @@ entAttributes::entAttributes(int* &list)
 	maxHealth = 1;
 	maxMana = 1;
 	maxStamina = 1;
+	baseDodgeChance = 0;
+	baseCritChance = 1;
+	magicCritChance = 1;
+	baseAccuracy = 70;
+	baseDmgRes = 0;
+	baseMagRes = 0;
 }
 
 entAttributes::entAttributes(int str, int intel, int agi, int dex,
@@ -127,4 +131,10 @@ entAttributes::entAttributes(int str, int intel, int agi, int dex,
 	maxHealth = hlth;
 	maxMana = man;
 	maxStamina = stam;
+	baseDodgeChance = 0;
+	baseCritChance = 1;
+	magicCritChance = 1;
+	baseAccuracy = 70;
+	baseDmgRes = 0;
+	baseMagRes = 0;
 }

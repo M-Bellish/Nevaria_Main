@@ -7,18 +7,20 @@
 
 using namespace std;
 
+void clearScreen();
 void pause();
+void showHelp(string);
 
 //Skill name list; used to initialize skillLevels with skill names being keys.
 //Can be sliced if passed an index to get the name key to slice the skillLevels map
 const string skillList[9]{ "blade", "blunt", "axe", "marksman", "defence",
-	"spellcasting", "alchemy", "smithing", "enchanting" };
+	"spellcasting", "alchemy", "smithing", "enchanting"};
 
 //Skill experience requirements for each skill level
-const int skillExpLevelList[9] = {20, 40, 70, 120, 150, 200, 220, 350, 500 };
+const int skillExpLevelList[9] = {20, 40, 70, 120, 150, 200, 220, 350, 500};
 
 //Magic types
-const string Elements[6]{ "Fire", "Lightning", "Ice", "Wind", "Dark", "Holy" };
+const string Elements[6]{ "Fire", "Lightning", "Ice", "Wind", "Dark", "Holy"};
 
 //Weapons and modifiers
 const string wepTypes[10]{"Dagger", "Short Sword", "Long Sword", "Great Sword", "Battle Axe", "Great Axe", "Mace", "Warhammer", "Short Bow", "Long Bow" };

@@ -50,6 +50,12 @@ int main() {
 	return 0;
 }
 
+
+void clearScreen() {
+	//system("clear");
+	system("CLS");
+}
+
 //Stops the program until the user presses Enter.
 //Used for anytime the user needs time to read the screen.
 void pause() {
@@ -63,8 +69,8 @@ void pause() {
 }
 
 void showHelp(string help) {
-	system("clear");
-	//system("CLS");
+	clearScreen();
 	cout << help << endl;
 	pause();
 }
+
