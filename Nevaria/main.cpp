@@ -3,6 +3,7 @@
 //Title: "Nevaria"
 
 #include <iostream>
+#include <iomanip>
 #include <cstdlib>
 #include <map>
 #include <string>

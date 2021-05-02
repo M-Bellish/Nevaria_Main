@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstdlib>
+#include <stdlib.h>
 #include <string>
+#include <iomanip>
 #include <algorithm>
 #include "Functions.h"
 #include "Constants.h"
@@ -13,18 +15,18 @@ using namespace std;
 class longNameExcept {
 public:
 	longNameExcept() {
-		message = "Name entered is too long. Limit of name length is 20 characters";
+		message = "Name entered is too long. Limit of name length is 20 characters.";
 	}
 	longNameExcept(string str) {
 		message = str;
 	}
 	string what() {
-		string pause;
+		string r_Pause;
 		clearScreen();
 		do {
 			message = "Name entered is too long. Limit of name length is 20 characters\n\nPress Enter to continue...";
 			cout << message << endl;
-			getline(cin, pause);
+			getline(cin, r_Pause);
 		} while (false);
 		return "";
 	}
@@ -62,7 +64,7 @@ bool checkChoice(int& input, int maxValid) {
 		return false;
 	else if (input > maxValid || input < 0) {
 		cout << "Invalid Input. Enter a valid option." << endl;
-		pause();
+		r_Pause();
 		clearScreen();
 		return true;
 	}
@@ -77,7 +79,7 @@ bool checkChoice(string& choice, int& numChoice) {
 	if (choice != "help") {
 		choice = "";
 		cout << "Invalid Input." << endl;
-		pause();
+		r_Pause();
 		return true;
 	}
 	else {
@@ -154,7 +156,7 @@ void statAdjustCheck(string& choice, int& numChoice) {
 			}
 			else {
 				cout << "Invalid Input." << endl;
-				pause();
+				r_Pause();
 			}
 		}
 		else if (isdigit(ch)) {
@@ -163,7 +165,7 @@ void statAdjustCheck(string& choice, int& numChoice) {
 		}
 		else {
 			cout << "Invalid Input." << endl;
-			pause();
+			r_Pause();
 		}
 	} while (valFlag);
 }
@@ -178,15 +180,15 @@ void statAdjust(int& stat, int& points) {
 
 	if (tempChoice2 > points) {
 		cout << "You don't have that many points left to spend!" << endl;
-		pause();
+		r_Pause();
 	}
 	else if (tempChoice2 + stat < 10) {
 		cout << "Stats can't be lower than 10!" << endl;
-		pause();
+		r_Pause();
 	}
 	else if (tempChoice2 + stat > 18) {
 		cout << "A stat can't start with more than 18 points!" << endl;
-		pause();
+		r_Pause();
 	}
 	else {
 		stat = stat + tempChoice2;
@@ -238,17 +240,31 @@ void characterCreation() {
 	string charName = "";
 	bool statFlag = true;
 	bool skillFlag = true;
+	clearScreen();
+
+	//system("Color 16");
+	cout << setfill('#') << setw(60) << "\n"; cout.flush();
+	//system("Color 16");
+	slow_Type("  \\  |   ____|  \\ \\     /      \\       _ \\   _ _|      \\    ", true, '.');
+	slow_Type("   \\ |   __|     \\ \\   /      _ \\     |   |    |      _ \\   ", true, '.');
+	slow_Type(" |\\  |   |        \\ \\ /      ___ \\    __ <     |     ___ \\  ", true, '.');
+	slow_Type("_| \\_|  _____|     \\_/     _/    _\\  _| \\_\\  ___|  _/    _\\ ", true, '.');
+	//system("Color 16");
+	//system("Color 16");
+	cout << setfill('#') << setw(60) << "\n"; cout.flush();
+	pause();
 
 	do {
 		try {
-			cout << "What is your name? " << endl;
+			clearScreen();
+			slow_Type("What is your name? ");
 			getline(cin, charName);
 			if (charName.length() > 20)
 				tempChoice = 2;
 			else {
 				clearScreen();
-				cout << "Your name is " << charName << ". Is that correct?" << endl;
-				cout << "(0) No, I want to put in a different name.\n(1) Yes, Continue." << endl;
+				slow_Type("Your name is " + charName + ". Is that correct?");
+				slow_Type("(0) No, I want to put in a different name.\n(1) Yes, Continue.");
 
 				do {
 					cin >> tempChoice;
@@ -277,7 +293,7 @@ void characterCreation() {
 	} while (charName == "");
 
 	clearScreen();
-	help = "Stat Explanations: \n\nStrength - Affects melee damage. Factors into max Health and Stamina. Determines max encumberance. \n\nIntelligence - Affects magic damage. Determines max Mana. \n\nAgility - Affects your chance to dodge and land critical hits. \n\nDexterity - Affects weapon accuracy and ranged weapon damage. \n\nConstitution - Affects physical damage resistance. Factors into max Health and Stamina. \n\nWill - Affects magical damage resistance and chance to critically hit with spells. Factors into max Stamina.\n\nStats can't be lower than 10 or higher than 18 to start with.\nUse a negative number to take points back from a stat e.g. -2.\n\nType in \"help\" to view this information again.\n\n";
+	help = "Stat Explanations:\n\nStrength: Affects melee damage. Factors into max Health and Stamina. Determines max encumberance.\n\nIntelligence: Affects magic damage. Determines max Mana.\n\nAgility: Affects your chance to dodge and land critical hits. \nDexterity: Affects weapon accuracy and ranged weapon damage. \nConstitution: Affects physical damage resistance. Factors into max Health and Stamina.\n\nWill: Affects magical damage resistance and chance to critically hit with spells. Factors into max Stamina.\n\nStats can't be lower than 10 or higher than 18 to start with. Use a negative number to take points back from a stat e.g. -2.\nType in \"help\" to view this information again.\n";
 	showHelp(help);
 	clearScreen();
 
@@ -309,7 +325,7 @@ void characterCreation() {
 			if (pointPool != 0) {
 				clearScreen();
 				cout << "Not all points spent!" << endl;
-				pause();
+				r_Pause();
 				break;
 			}
 			else if (pointPool == 0) {
@@ -343,17 +359,17 @@ void characterCreation() {
 		case 0:
 			clearScreen();
 			cout << skillList[tempChoice] << " was unselected." << endl;
-			pause();
+			r_Pause();
 			break;
 		case 1:
 			clearScreen();
 			cout << skillList[tempChoice] << " was selected." << endl;
-			pause();
+			r_Pause();
 			break;
 		case 2:
 			clearScreen();
 			cout << "Not all preferred skills selected!" << endl;
-			pause();
+			r_Pause();
 			break;
 		case 3:
 			clearScreen();
