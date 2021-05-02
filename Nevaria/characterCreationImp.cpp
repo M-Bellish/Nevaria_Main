@@ -2,26 +2,13 @@
 #include <cstdlib>
 #include <string>
 #include <algorithm>
+#include "Functions.h"
 #include "Constants.h"
 #include "characterCreation.h"
 
 using namespace std;
 
-//
-class backExcept {
-public:
-	backExcept() {
-		message = "";
-	}
-	backExcept(string str) {
-		message = str;
-	}
-	string what() {
-		return message;
-	}
-private:
-	string message;
-};
+
 //
 class longNameExcept {
 public:
@@ -32,19 +19,23 @@ public:
 		message = str;
 	}
 	string what() {
-		return message;
+		string pause;
+		clearScreen();
+		do {
+			message = "Name entered is too long. Limit of name length is 20 characters\n\nPress Enter to continue...";
+			cout << message << endl;
+			getline(cin, pause);
+		} while (false);
+		return "";
 	}
 private:
 	string message;
-};
-//
-class ExitExcept {
 };
 
 //*********************************************************************************************
 
 string help;
-int pointPool = 16;
+int pointPool = 20;
 int str = 10, intel = 10, agi = 10, dex = 10, con = 10, wil = 10;
 int skillPointPool = 3;
 string selectedSkills[3]{" ", " ", " "};
@@ -234,10 +225,12 @@ int skillSelect(int numChoice) {
 			return 1;
 		}
 	}
-
+	return -1;
 }
 
-//
+//***************************************************************************************************
+//Core function
+//Gathers all inputs from user needed to create a character.
 void characterCreation() {
 	int tempChoice = -1;
 	int skillChoice = -1;
@@ -251,25 +244,29 @@ void characterCreation() {
 			cout << "What is your name? " << endl;
 			getline(cin, charName);
 			if (charName.length() > 20)
-				throw longNameExcept();
-			clearScreen();
-			cout << "Your name is " << charName << ". Is that correct?" << endl;
-			cout << "(0) No, I want to put in a different name.\n(1) Yes, Continue." << endl;
+				tempChoice = 2;
+			else {
+				clearScreen();
+				cout << "Your name is " << charName << ". Is that correct?" << endl;
+				cout << "(0) No, I want to put in a different name.\n(1) Yes, Continue." << endl;
 
-			do {
-				cin >> tempChoice;
-			} while (checkChoice(tempChoice, 1));
+				do {
+					cin >> tempChoice;
+				} while (checkChoice(tempChoice, 1));
+			}
 
 			switch (tempChoice) {
 			case 0:
 				throw backExcept();
 			case 1:
 				break;
+			case 2:
+				throw longNameExcept();
 			}
 		}
 		catch (longNameExcept longObj) {
-			charName = "";
-			cout << longObj.what() << endl;
+			charName = longObj.what();
+			clearScreen();
 		}
 		catch (backExcept backObj) {
 			cin.clear();
@@ -310,6 +307,7 @@ void characterCreation() {
 			break;
 		case 6:
 			if (pointPool != 0) {
+				clearScreen();
 				cout << "Not all points spent!" << endl;
 				pause();
 				break;
@@ -329,7 +327,7 @@ void characterCreation() {
 
 
 	clearScreen();
-	help = "Skill Explanations:\n\nBlade - Your effectiveness with sharp weapons from daggers to 2-handed swords.\n\nBlunt - Your effectiveness with 1 & 2-handed maces and hammers.\n\nAxe - Your effectiveness with 1 & 2-handed axes.\n\nMarksman - Your effectiveness with bows.\n\nDefence - Your ability to wear armor effectively and to avoid being hit. \n\nSpellcasting - The effectiveness of spells you cast.\n\nAlchemy - Your ability to craft potions & poisons.\n\nSmithing - Your ability to craft weapons & armor.\n\nEnchanting - Your ability to add magic effects to weapons & armor\n\nType in \"help\" to view this information again.\n\n";
+	help = "Overview: Skill levels range from 1 to 10. All skills start at level 1 except for preferred skills.\nYou will choose 3 preferred skills that start at level 4. They also gain experience slightly faster.\nSkills gain experience from use and unlock new attacks/abilities as their level increases.\n\nSkill Explanations:\n\nBlade - Your effectiveness with all sharp weapons, ranging from daggers to 2-handed swords.\n\nBlunt - Your effectiveness with 1 & 2-handed maces and hammers.\n\nAxe - Your effectiveness with 1 & 2-handed axes.\n\nMarksman - Your effectiveness with bows.\n\nDefence - Your ability to wear armor effectively and to avoid being hit. \n\nSpellcasting - The effectiveness of spells you cast.\n\nAlchemy - Your ability to craft potions & poisons.\n\nSmithing - Your ability to craft weapons & armor.\n\nEnchanting - Your ability to add magic effects to weapons & armor\n\nType in \"help\" to view this information again.\n\n";
 	showHelp(help);
 	clearScreen();
 
@@ -343,19 +341,24 @@ void characterCreation() {
 
 		switch (skillChoice) {
 		case 0:
+			clearScreen();
 			cout << skillList[tempChoice] << " was unselected." << endl;
 			pause();
 			break;
 		case 1:
+			clearScreen();
 			cout << skillList[tempChoice] << " was selected." << endl;
 			pause();
 			break;
 		case 2:
+			clearScreen();
 			cout << "Not all preferred skills selected!" << endl;
 			pause();
 			break;
 		case 3:
+			clearScreen();
 			tempChoice = -1;
+			cout << "Selected Skills: [" << selectedSkills[0] << "] [" << selectedSkills[1] << "] [" << selectedSkills[2] << "]\n\n";
 			cout << "Are you sure?\n(0) No\n(1) Yes" << endl;
 			try {
 				do {
@@ -371,10 +374,9 @@ void characterCreation() {
 					break;
 				}
 			}
-			catch (backExcept backObj) {
+			catch (backExcept) {
 				cin.clear();
 				cin.ignore(1, '\n');
-				clearScreen();
 			}
 			break;
 		case 10:
@@ -385,6 +387,9 @@ void characterCreation() {
 		}
 
 	} while (skillFlag || skillPointPool != 0);
+
+
+	clearScreen();
 
 	cout << "Done!" << endl;
 

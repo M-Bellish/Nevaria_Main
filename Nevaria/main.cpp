@@ -1,3 +1,7 @@
+//Chase Bell
+//Text-Based Adventure RPG
+//Title: "Nevaria"
+
 #include <iostream>
 #include <cstdlib>
 #include <map>
@@ -28,9 +32,9 @@ int main() {
 		//ask for name - DONE
 		//explain stats - DONE
 		//stat distribution loop - DONE
-		//explain skills
-		//skill sellect loop
-		//initialize player object with input variables
+		//explain skills - DONE
+		//skill select loop - DONE
+		//initialize player object with input variables - 
 		//end character creation
 
 	characterCreation();
@@ -49,28 +53,3 @@ int main() {
 
 	return 0;
 }
-
-
-void clearScreen() {
-	//system("clear");
-	system("CLS");
-}
-
-//Stops the program until the user presses Enter.
-//Used for anytime the user needs time to read the screen.
-void pause() {
-	string pause;
-	do {
-		cin.clear();
-		cin.ignore(1, '\n');
-		cout << "Press Enter to continue..." << endl;
-		getline(cin, pause);
-	} while (false);
-}
-
-void showHelp(string help) {
-	clearScreen();
-	cout << help << endl;
-	pause();
-}
-

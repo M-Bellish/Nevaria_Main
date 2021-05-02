@@ -7,10 +7,6 @@
 
 using namespace std;
 
-void clearScreen();
-void pause();
-void showHelp(string);
-
 //Skill name list; used to initialize skillLevels with skill names being keys.
 //Can be sliced if passed an index to get the name key to slice the skillLevels map
 const string skillList[9]{ "blade", "blunt", "axe", "marksman", "defence",
