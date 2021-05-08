@@ -38,10 +38,11 @@ void clearScreen() {
 void r_Pause() {
 	string r_Pause;
 	do {
+		
 		cin.clear();
-		cin.ignore(1, '\n');
 		cout << "Press Enter to continue..." << endl;
 		getline(cin, r_Pause);
+		cin.ignore(1, '\n');
 	} while (false);
 }
 

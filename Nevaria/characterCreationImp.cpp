@@ -111,13 +111,26 @@ void checkHelp(string& choice, int& numChoice, int statOrSkill, int validOptionC
 
 			if (isdigit(ch) != 0) {
 				if (choice.length() == 1) {
-					numChoice = ch - '0';
+					numChoice = stoi(choice);
 					choice = "";
 					valFlag = false;
 				}
 				else {
-					numChoice = -1;
-					valFlag = false;
+					for (int i = 0; i < choice.length(); i++) {
+						if (isdigit(choice[i]) != 0 && i != (choice.length() - 1)) {
+							continue;
+						}
+						else if (isdigit(choice[i]) != 0 && i == (choice.length() - 1)) {
+							numChoice = stoi(choice);
+							choice = "";
+							valFlag = false;
+						}
+						else {
+							numChoice = -1;
+							valFlag = false;
+							break;
+						}
+					}
 				}
 			}
 			else if (isalpha(ch))
@@ -252,7 +265,7 @@ void characterCreation() {
 	//system("Color 16");
 	//system("Color 16");
 	cout << setfill('#') << setw(60) << "\n"; cout.flush();
-	pause();
+	r_Pause();
 
 	do {
 		try {
