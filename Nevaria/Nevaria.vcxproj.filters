@@ -36,13 +36,13 @@
     <ClCompile Include="itemArmorImp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="itemBaseClassImp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="hub.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="characterCreationImp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="itemClassVirtual_Imp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Functions_Imp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,9 +68,6 @@
     <ClInclude Include="itemWeapon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="itemBaseClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="itemConsumable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -84,6 +81,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="itemClassVirtual.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hub.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

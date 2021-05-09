@@ -1,8 +1,16 @@
 #include <iostream>
 #include <string>
-#include "itemBaseClass.h"
+#include "itemClassVirtual.h"
 
 using namespace std;
+
+//void item::generateName() {
+//
+//}
+
+void item::giveName(string nm) {
+	name = nm;
+}
 
 string item::getName() {
 	return name;
@@ -27,4 +35,8 @@ item::item(string nm, int val, int wgt) {
 		name = nm;
 		value = val;
 		weight = wgt;
+}
+
+item::~item() {
+
 }

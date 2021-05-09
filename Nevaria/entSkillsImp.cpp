@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
-#include <map>
 #include <string>
+#include <map>
 #include "entSkills.h"
 #include "Constants.h"
 

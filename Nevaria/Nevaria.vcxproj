@@ -139,9 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="hub.cpp" />
+    <ClCompile Include="Functions_Imp.cpp" />
     <ClCompile Include="itemArmorImp.cpp" />
-    <ClCompile Include="itemBaseClassImp.cpp" />
+    <ClCompile Include="itemClassVirtual_Imp.cpp" />
     <ClCompile Include="entAttributesImp.cpp" />
     <ClCompile Include="entInventoryImp.cpp" />
     <ClCompile Include="EntityImp.cpp" />
@@ -158,12 +158,15 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="entInventory.h" />
     <ClInclude Include="entSkills.h" />
+    <ClInclude Include="Exceptions.h" />
     <ClInclude Include="Functions.h" />
+    <ClInclude Include="Hub.h" />
     <ClInclude Include="itemArmor.h" />
-    <ClInclude Include="itemBaseClass.h" />
+    <ClInclude Include="itemClassVirtual.h" />
     <ClInclude Include="itemConsumable.h" />
     <ClInclude Include="itemWeapon.h" />
     <ClInclude Include="playerJournal.h" />
+    <ClInclude Include="Screens.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

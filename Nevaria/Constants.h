@@ -1,9 +1,20 @@
 #ifndef H_Constants
 #define H_Constants
 
+//#define NC "\e[0m"
+//#define RED "\e[0;31m"
+//#define GRN "\e[0;32m"
+//#define CYN "\e[0;36m"
+//#define REDB "\e[41m"
 
 #include <iostream>
+#include <fstream>
+#include <cstdlib>
 #include <string>
+#include "itemClassVirtual.h"
+#include "itemArmor.h"
+#include "itemWeapon.h"
+#include "itemConsumable.h"
 
 using namespace std;
 
@@ -24,11 +35,24 @@ const int wepBaseDamage[10]{3, 4, 7, 12, 5, 14, 5, 15, 3, 8 };
 const int wepStaminaCost[10]{2, 3, 6, 10, 5, 12, 4, 14, 4, 9 };
 const int wepBaseWgt[10]{2, 3, 6, 10, 5, 12, 4, 14, 4, 9 };
 
+//Armor and modifiers
+const string armorSlots[8]{ "Head", "Shoulders","Chest", "Hands", "Legs", "Feet", "Ring", "Amulet" };
+const int armorModifier[8]{ 3, 2, 5, 1, 4, 2, 0, 0};
+
 //Materials and modifiers
 const string craftMatsTypes[8]{ "Chitin", "Leather", "Iron", "Steel", "Elven Steel", "Dwarven Steel", "Mithril", "Adamantite"};
 const double craftMatsWgtMod[8]{0.3, 0.6, 1.0, 1.2, 0.9, 2.0, 0.8, 1.5};
 const double craftMatsDmgMod[8]{0.4, 0, 1.0, 1.1, 1.3, 1.9, 1.7, 2.1};
 const double craftMatsDefMod[8]{0.5, 0.7, 1.0, 1.2, 1.4, 2.0, 1.6, 1.9};
+
+//status effects
+const string debuffNames[8]{ "Bleeding", "Poisoned", "Stunned", "Sundered", "Blinded", "Burning", "Silenced", "Paralyzed" };
+//Key: 1 Damage, 2 No actions, 3 Defence down, 4 Accuracy down, 5 No spells
+const double debuffEffect[8]{ 1, 1, 2, 3, 4, 1, 5, 2 };
+
+//Starting Equipment
+
+
 
 
 

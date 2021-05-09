@@ -4,46 +4,27 @@
 #include <string>
 #include <iomanip>
 #include <algorithm>
+#include <Windows.h>
+#include <cwchar>
 #include "Functions.h"
+#include "Exceptions.h"
 #include "Constants.h"
+#include "Entity.h"
 #include "characterCreation.h"
 
 using namespace std;
 
-
-//
-class longNameExcept {
-public:
-	longNameExcept() {
-		message = "Name entered is too long. Limit of name length is 20 characters.";
-	}
-	longNameExcept(string str) {
-		message = str;
-	}
-	string what() {
-		string r_Pause;
-		clearScreen();
-		do {
-			message = "Name entered is too long. Limit of name length is 20 characters\n\nPress Enter to continue...";
-			cout << message << endl;
-			getline(cin, r_Pause);
-		} while (false);
-		return "";
-	}
-private:
-	string message;
-};
-
-//*********************************************************************************************
-
+//Global variables
 string help;
 int pointPool = 20;
 int str = 10, intel = 10, agi = 10, dex = 10, con = 10, wil = 10;
+int statArray[6] = { 10, 10, 10, 10, 10, 10 };
+int *statPtr;
 int skillPointPool = 3;
 string selectedSkills[3]{" ", " ", " "};
+int skillArray[3];
+int *skillPtr;
 int skillPos = 0;
-
-using namespace std;
 
 //Displays screen for distributing stats.
 void statScreen() {
@@ -209,6 +190,8 @@ void statAdjust(int& stat, int& points) {
 	}
 }
 
+
+
 //Checks if skill is already on list, adds it to selectedSkills if not on
 //list and empty slot available. Removes skill from list if already on list.
 int skillSelect(int numChoice) {
@@ -229,6 +212,7 @@ int skillSelect(int numChoice) {
 			if (selectedSkills[i] == skillList[numChoice]) {
 				skillPos = i;
 				selectedSkills[i] = " ";
+				skillArray[i] = numChoice;
 				skillPointPool++;
 				return 0;
 			}
@@ -246,7 +230,8 @@ int skillSelect(int numChoice) {
 //***************************************************************************************************
 //Core function
 //Gathers all inputs from user needed to create a character.
-void characterCreation() {
+void characterCreation(entity* player) {
+	//Global Function variables
 	int tempChoice = -1;
 	int skillChoice = -1;
 	string varChoice;
@@ -255,29 +240,18 @@ void characterCreation() {
 	bool skillFlag = true;
 	clearScreen();
 
-	//system("Color 16");
-	cout << setfill('#') << setw(60) << "\n"; cout.flush();
-	//system("Color 16");
-	slow_Type("  \\  |   ____|  \\ \\     /      \\       _ \\   _ _|      \\    ", true, '.');
-	slow_Type("   \\ |   __|     \\ \\   /      _ \\     |   |    |      _ \\   ", true, '.');
-	slow_Type(" |\\  |   |        \\ \\ /      ___ \\    __ <     |     ___ \\  ", true, '.');
-	slow_Type("_| \\_|  _____|     \\_/     _/    _\\  _| \\_\\  ___|  _/    _\\ ", true, '.');
-	//system("Color 16");
-	//system("Color 16");
-	cout << setfill('#') << setw(60) << "\n"; cout.flush();
-	r_Pause();
-
+	//Name input block
 	do {
 		try {
 			clearScreen();
-			slow_Type("What is your name? ");
+			slow_Type("What is your name? ", false, ' ');
 			getline(cin, charName);
 			if (charName.length() > 20)
 				tempChoice = 2;
 			else {
 				clearScreen();
-				slow_Type("Your name is " + charName + ". Is that correct?");
-				slow_Type("(0) No, I want to put in a different name.\n(1) Yes, Continue.");
+				slow_Type("Your name is " + charName + ". Is that correct?", false, ' ');
+				slow_Type("(0) No, I want to put in a different name.\n(1) Yes, Continue.", false, ' ');
 
 				do {
 					cin >> tempChoice;
@@ -305,11 +279,13 @@ void characterCreation() {
 		}
 	} while (charName == "");
 
+	//Sets up and displays stat help screen.
 	clearScreen();
 	help = "Stat Explanations:\n\nStrength: Affects melee damage. Factors into max Health and Stamina. Determines max encumberance.\n\nIntelligence: Affects magic damage. Determines max Mana.\n\nAgility: Affects your chance to dodge and land critical hits. \nDexterity: Affects weapon accuracy and ranged weapon damage. \nConstitution: Affects physical damage resistance. Factors into max Health and Stamina.\n\nWill: Affects magical damage resistance and chance to critically hit with spells. Factors into max Stamina.\n\nStats can't be lower than 10 or higher than 18 to start with. Use a negative number to take points back from a stat e.g. -2.\nType in \"help\" to view this information again.\n";
 	showHelp(help);
 	clearScreen();
 
+	//Stat point adjustment block
 	do {
 		tempChoice = 0;
 
@@ -318,21 +294,27 @@ void characterCreation() {
 		switch (tempChoice) {
 		case 0:
 			statAdjust(str, pointPool);
+			statArray[tempChoice] = str;
 			break;
 		case 1:
 			statAdjust(intel, pointPool);
+			statArray[tempChoice] = intel;
 			break;
 		case 2:
 			statAdjust(agi, pointPool);
+			statArray[tempChoice] = agi;
 			break;
 		case 3:
 			statAdjust(dex, pointPool);
+			statArray[tempChoice] = dex;
 			break;
 		case 4:
 			statAdjust(con, pointPool);
+			statArray[tempChoice] = con;
 			break;
 		case 5:
 			statAdjust(wil, pointPool);
+			statArray[tempChoice] = wil;
 			break;
 		case 6:
 			if (pointPool != 0) {
@@ -353,13 +335,17 @@ void characterCreation() {
 		}
 
 	} while (statFlag || pointPool != 0);
+	//End stat adjust block
 
+	statPtr = statArray;
 
+	//Sets up and displays skill help screen.
 	clearScreen();
 	help = "Overview: Skill levels range from 1 to 10. All skills start at level 1 except for preferred skills.\nYou will choose 3 preferred skills that start at level 4. They also gain experience slightly faster.\nSkills gain experience from use and unlock new attacks/abilities as their level increases.\n\nSkill Explanations:\n\nBlade - Your effectiveness with all sharp weapons, ranging from daggers to 2-handed swords.\n\nBlunt - Your effectiveness with 1 & 2-handed maces and hammers.\n\nAxe - Your effectiveness with 1 & 2-handed axes.\n\nMarksman - Your effectiveness with bows.\n\nDefence - Your ability to wear armor effectively and to avoid being hit. \n\nSpellcasting - The effectiveness of spells you cast.\n\nAlchemy - Your ability to craft potions & poisons.\n\nSmithing - Your ability to craft weapons & armor.\n\nEnchanting - Your ability to add magic effects to weapons & armor\n\nType in \"help\" to view this information again.\n\n";
 	showHelp(help);
 	clearScreen();
 
+	//Preferred skill choice block
 	do {
 		tempChoice = 0;
 		skillChoice = -1;
@@ -416,9 +402,13 @@ void characterCreation() {
 		}
 
 	} while (skillFlag || skillPointPool != 0);
+	//End skill choice block
 
+	skillPtr = skillArray;
 
 	clearScreen();
+
+	player->create(charName, statPtr, skillPtr);
 
 	cout << "Done!" << endl;
 

@@ -3,8 +3,6 @@
 
 using namespace std;
 
-#include "Constants.h"
-
 class entSkills{
 	public:
 		//Gets current skill level of skill name passed to it.

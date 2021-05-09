@@ -10,8 +10,10 @@ void tavern() {
 	cin >> num;
 
 	switch (num) {
-
-
+	case 0:
+		break;
+	default:
+		break;
 	}
 }
 
@@ -19,9 +21,9 @@ void charSheet() {
 
 }
 
-void journal() {
-
-}
+//void journal() {
+//
+//}
 
 void mageGuild() {
 	int num;
@@ -30,7 +32,10 @@ void mageGuild() {
 	cin >> num;
 
 	switch (num) {
-
+	case 0:
+		break;
+	default:
+		break;
 	}
 }
 
@@ -41,8 +46,10 @@ void advGuild() {
 	cin >> num;
 
 	switch (num) {
-		default:
-			cout << "Invalid Input." << endl;
+	case 0:
+		break;
+	default:
+		cout << "Invalid Input." << endl;
 	}
 }
 
@@ -53,8 +60,10 @@ void arena() {
 	cin >> num;
 
 	switch (num) {
-		default:
-			cout << "Invalid Input." << endl;
+	case 0:
+		break;
+	default:
+		cout << "Invalid Input." << endl;
 	}
 }
 
@@ -65,8 +74,10 @@ void home() {
 	cin >> num;
 
 	switch (num) {
-		default:
-			cout << "Invalid Input." << endl;
+	case 0:
+		break;
+	default:
+		cout << "Invalid Input." << endl;
 	}
 }
 
@@ -77,8 +88,10 @@ void leaveTown() {
 	cin >> num;
 
 	switch (num) {
-		default:
-			cout << "Invalid Input." << endl;
+	case 0:
+		break;
+	default:
+		cout << "Invalid Input." << endl;
 	}
 }
 
@@ -89,8 +102,10 @@ void merchWeapon() {
 	cin >> num;
 
 	switch (num) {
-		default:
-			cout << "Invalid Input." << endl;
+	case 0:
+		break;
+	default:
+		cout << "Invalid Input." << endl;
 	}
 }
 
@@ -101,8 +116,10 @@ void merchArmor() {
 	cin >> num;
 
 	switch (num) {
-		default:
-			cout << "Invalid Input." << endl;
+	case 0:
+		break;
+	default:
+		cout << "Invalid Input." << endl;
 	}
 }
 
@@ -113,8 +130,10 @@ void merchPotion() {
 	cin >> num;
 
 	switch (num) {
-		default:
-			cout << "Invalid Input." << endl;
+	case 0:
+		break;
+	default:
+		cout << "Invalid Input." << endl;
 	}
 }
 
@@ -125,8 +144,10 @@ void merchMaterials() {
 	cin >> num;
 
 	switch (num) {
-		default:
-			cout << "Invalid Input." << endl;
+	case 0:
+
+	default:
+		cout << "Invalid Input." << endl;
 	}
 }
 
@@ -154,42 +175,41 @@ void merchant() {
 	}
 }
 
-void hub(int location) {
-
+bool hub(int location) {
 
 	switch (location) {
-		case 0: //Exit Game
-			tavern();
-			break;
-		case 1: //Character Sheet
-			charSheet();
-			break;
-		case 2: //Journal
-			journal();
-			break;
-		case 3: //Tavern
-			tavern();
-			break;
-		case 4: //Merchant
-			merchant();
-			break;
-		case 5: //Mage's Guild
-			mageGuild();
-			break;
-		case 6: //Adventurer's Guild
-			advGuild();
-			break;
-		case 7: //Arena
-			arena();
-			break;
-		case 8: //Home
-			home();
-			break;
-		case 9: //Leave town
-			leaveTown();
-			break;
-		default:
-			cout << "Can't find that location." << endl;
+	case 0: //Exit Game
+		return false;
+	case 1: //Character Sheet
+		charSheet();
+		break;
+		//case 2: //Journal
+		//	journal();
+		//	break;
+	case 3: //Tavern
+		tavern();
+		break;
+	case 4: //Merchant
+		merchant();
+		break;
+	case 5: //Mage's Guild
+		mageGuild();
+		break;
+	case 6: //Adventurer's Guild
+		advGuild();
+		break;
+	case 7: //Arena
+		arena();
+		break;
+	case 8: //Tavern
+		tavern();
+		break;
+	case 9: //Leave town
+		leaveTown();
+		break;
+	default:
+		cout << "Can't find that location." << endl;
 	}
+	return true;
 }
 

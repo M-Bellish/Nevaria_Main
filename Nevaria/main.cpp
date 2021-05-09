@@ -5,52 +5,90 @@
 #include <iostream>
 #include <iomanip>
 #include <cstdlib>
-#include <map>
-#include <string>
 #include <algorithm>
-#include "Constants.h"
-#include "entSkills.h"
 #include "characterCreation.h"
-//#include "Hub.cpp"
-//#include "itemBaseClass.h"
-//#include "itemArmor.h"
+#include "Functions.h"
+#include "Screens.h"
+//#include "Hub.h"
+#include "itemClassVirtual.h"
+#include "itemArmor.h"
 //#include "itemWeapon.h"
 //#include "itemConsumable.h"
-//#include "inventory.h"
-//#include "Entity.h"
+#include "entInventory.h"
+#include "Entity.h"
 //#include "journal.h"
 
 using namespace std;
 
+//bool goToLocation();
+
 
 int main() {
+	entity* player;
+	player = new entity();
+	int menuNum;
 	bool exitFlag = true;
-	
-	//character creation input variables
-	//player object variable
-	
-	//Create Player Dialogue
-		//ask for name - DONE
-		//explain stats - DONE
-		//stat distribution loop - DONE
-		//explain skills - DONE
-		//skill select loop - DONE
-		//initialize player object with input variables - 
-		//end character creation
 
-	characterCreation();
+	//Formats screen
+	screenSetup();
+	//Displays Title screen and main menu.
+	menuNum = titleScreen();
 
-	//explain "help" function
-	//pause
-	//list town options
-	// while (exitFlag != true) 
-	// {
+	//Menu switch
+	switch (menuNum) {
+		case 0:
+			characterCreation(player);
+			break;
+		//case 1:
+		//	break;
+		//case 2:
+		//	break;
+		default:
+			break;
+	}
 
-	// 	int location;
-	// 	cin >> location;
-	// 	hub(location);
 
-	// } 
+	//if (player->getName() != "") {
+	//	do {
+	//		exitFlag = goToLocation();
+	//	} while (exitFlag);
+	//}
 
 	return 0;
 }
+
+
+
+//Displays the hub screen
+//bool goToLocation() {
+//
+//	bool exitFlag = true;
+//	int tempChoice;
+//	bool valFlag;
+//
+//	do {
+//		try {
+//			hubScreen();
+//			do {
+//				cin >> tempChoice;
+//				cin.clear();
+//				cin.ignore(1, '\n');
+//				valFlag = checkChoice(tempChoice, 9);
+//				if (valFlag)
+//					throw backExcept();
+//			} while (checkChoice(tempChoice, 9));
+//
+//			exitFlag = hub(tempChoice);
+//		}
+//		catch (backExcept backObj) {
+//			cin.clear();
+//			cin.ignore(1, '\n');
+//			cout << "Invalid Input.";
+//			Sleep(1000);
+//			clearScreen();
+//			hubScreen();
+//		}
+//	} while (valFlag);
+//
+//	return exitFlag;
+//}

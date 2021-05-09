@@ -2,7 +2,7 @@
 #define H_itemWeapon
 
 #include <string>
-#include "itemBaseClass.h"
+#include "itemClassVirtual.h"
 
 class weapon : public item {
 public:

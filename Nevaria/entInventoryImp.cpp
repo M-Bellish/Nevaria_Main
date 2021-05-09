@@ -1,14 +1,20 @@
-// #include <iostream>
-// #include <map>
-// #include "entInventory.h"
+#include <iostream>
+#include "itemClassVirtual.h"
+#include "itemArmor.h"
+#include "entInventory.h"
 
-// using namespace std;
+using namespace std;
+
+armor entInventory::checkEquipped(int index) {
+	return itemsEquipped[index];
+}
 
 
+//Constructor
+entInventory::entInventory() {
 
+ }
 
-
-// entInventory::entInventory() {
-// 	//itemsEquipped
-
-// }
+entInventory::~entInventory() {
+	delete [] itemsEquipped;
+}

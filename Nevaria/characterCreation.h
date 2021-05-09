@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include "Entity.h"
 
 using namespace std;
 
@@ -16,6 +17,8 @@ void checkHelp(string& choice, int& numChoice, int statOrSkill, int validOptionC
 void statAdjustCheck(string& choice, int& numChoice);
 void statAdjust(int& stat, int& points);
 int skillSelect(int numChoice);
-void characterCreation();
+void characterCreation(entity* player);
+
+
 
 #endif
